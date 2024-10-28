@@ -1,13 +1,18 @@
+import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+
 export default function Home() {
   return (
-    <main className="max-w-5xl mx-auto">
+    <main className="flex flex-col justify-center h-full text-center max-w-5xl gap-6 mx-auto">
       <h1 className="text-5xl font-bold">
-        Invoicepedia
+        Invoicipedia
       </h1>
       <p>
-        <a href="">
-          Sing in
-        </a>
+        <Button asChild>
+          <Link href="/dashboard">
+            Sing in
+          </Link>
+        </Button>
       </p>
     </main>
   );
