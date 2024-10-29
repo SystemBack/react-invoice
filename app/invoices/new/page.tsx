@@ -1,13 +1,13 @@
-import { sql } from "drizzle-orm";
-import { db } from "@/db";
+'use client';
+
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { createAction } from "@/app/actions";
 
 
-  export default async function Home() {
-    const results = await db.execute(sql`SELECT current_database()`)
+  export default function Home() {
     return (
       <main className="flex flex-col justify-center h-full max-w-5xl gap-6 mx-auto my-12">
         <div className="flex justify-between">
@@ -16,9 +16,7 @@ import { Button } from "@/components/ui/button";
           </h1>
         </div>
 
-        {JSON.stringify(results)}
-
-        <form className="grid gap-4 max-w-sm" action="">
+        <form action={createAction} className="grid gap-4 max-w-sm">
           <div>
             <Label htmlFor="name" className="block font-semibold text-sm mb-2">Name</Label>
             <Input id="name" name="name" type="text" />
