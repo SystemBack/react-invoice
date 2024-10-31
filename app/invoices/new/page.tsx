@@ -3,11 +3,24 @@
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { createAction } from "@/app/actions";
-
+import { startTransition, SyntheticEvent, useState } from "react";
+import SubmitButton from "@/components/SubmitButton";
+import Form from 'next/form';
 
   export default function Home() {
+
+    const [status, setStatus] = useState('ready');
+
+    async function handleOnSubmit(event: SyntheticEvent) {
+      if (status === 'pending'){
+        event.preventDefault();
+        return;
+      }
+
+      setStatus('pending');
+    }
+
     return (
       <main className="flex flex-col justify-center h-full max-w-5xl gap-6 mx-auto my-12">
         <div className="flex justify-between">
@@ -16,7 +29,7 @@ import { createAction } from "@/app/actions";
           </h1>
         </div>
 
-        <form action={createAction} className="grid gap-4 max-w-sm">
+        <Form action={createAction} onSubmit={handleOnSubmit} className="grid gap-4 max-w-sm">
           <div>
             <Label htmlFor="name" className="block font-semibold text-sm mb-2">Name</Label>
             <Input id="name" name="name" type="text" />
@@ -35,11 +48,9 @@ import { createAction } from "@/app/actions";
             </Textarea>
           </div>
           <div>
-            <Button className="w-full font-semibold">
-              Submit
-            </Button>
+            <SubmitButton />
           </div>
-        </form>
+        </Form>
       </main>
     );
   }
